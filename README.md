@@ -36,7 +36,7 @@ example):
 ./quick-n-dirty ../LinuxPMI.wiki
 ```
 
-## Preview Your Work
+## Previewing Your Work
 Install the Gollum Ruby Gem to get a GitLab-like Wiki experience:
 ```
 gem install gollum
