@@ -20,7 +20,6 @@
   #define PUT_ENDING     { printf("-->"); }
 #endif /* CODIFIER */
 
-// Return value is whether or not to print c in caller
 char *look_for(const char *term, size_t depth) {
   if (*term == '\0') {
     return NULL;
