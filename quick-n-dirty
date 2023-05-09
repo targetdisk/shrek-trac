@@ -9,7 +9,9 @@ files=(
   RegressionTests SecurityRules SoftwareNotes Status Testing UserspaceInterfacingRules
 )
 
-![ -d "$outdir" ] \
+[ -z "$1" ] && (echo "$0 [INPUT_DIR]" >&2) && exit 1 || indir="$1"
+
+[ ! -d "$outdir" ] \
   && mkdir "$outdir" && pushd "$outdir" && git init && git branch -m main && popd
 
 cp Makefile config.rb "$outdir/"
@@ -18,7 +20,7 @@ git reset HEAD~
 popd
 
 for file in ${files[@]}; do
-  cat "$file" \
+  cat "$indir/$file" \
     | sed 's/^\s*===/###/' \
     | sed 's/^\s*==/##/' \
     | sed 's/^\s*=/#/' \

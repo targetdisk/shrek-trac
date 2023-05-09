@@ -19,8 +19,22 @@ You'll also need to make sure that you have your `user.name` and `user.email`
 settings squared away with [git-config(1)](https://git-scm.com/docs/git-config).
 
 ## Unleashing Your Inner Ogre
-Simply specify your Trac Wiki inputs in `files( ... )` and your `outdir`
-(see `quick-n-dirty`) and away you go!
+First, build the `blockifiers`:
+```
+make blockifiers
+```
+
+Edit `quick-n-dirty` to specify your Trac Wiki inputs in `files( ... )`
+and your `outdir`:
+```
+vi quick-n-dirty
+```
+
+Point to an input directory, and away you go (using `../LinuxPMI.wiki` as an
+example):
+```
+./quick-n-dirty ../LinuxPMI.wiki
+```
 
 ## Preview Your Work
 Install the Gollum Ruby Gem to get a GitLab-like Wiki experience:
@@ -28,7 +42,7 @@ Install the Gollum Ruby Gem to get a GitLab-like Wiki experience:
 gem install gollum
 ```
 
-Go to your `$outdir` and run:
+`cd` to your `$outdir` and run:
 ```
 make test
 ```
