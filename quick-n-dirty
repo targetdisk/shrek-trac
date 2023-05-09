@@ -36,8 +36,8 @@ for file in ${files[@]}; do
     | ./codifier \
     | ./dos_codifier \
     | ./inline_codifier \
-    > "out/$(basename -s '.md' "$file").md" || exit $?
-  dos2unix "out/$(basename -s '.md' "$file").md"
+    > "$outdir/$(basename -s '.md' "$file").md" || exit $?
+  dos2unix "$outdir/$(basename -s '.md' "$file").md"
 done
 
 pushd "$outdir"
