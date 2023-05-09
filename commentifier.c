@@ -63,6 +63,7 @@ void inner(void) {
           return;
         } else {
           printf("%c%s", c, lookie_str);
+          free(lookie_str);
         }
         break;
       default:
@@ -85,6 +86,7 @@ int main(void) {
           inner();
         } else {
           printf("%c%s", c, lookie_str);
+          free(lookie_str);
         }
         break;
       default:
