@@ -25,19 +25,13 @@ char *look_for(const char *term, size_t depth) {
     return NULL;
   }
   char *ret = NULL;
-  int c = '\0';
-  for (;;) {
-    c = getchar();
-    if (c == *term) {
-      ret = look_for(++term, ++depth);
-      if (ret)
-        *(--ret) = c;
-      return ret;
-    } else {
-      goto ret;
-    }
+  int c = getchar();
+  if (c == *term) {
+    ret = look_for(++term, ++depth);
+    if (ret)
+      *(--ret) = c;
+    return ret;
   }
-ret:
   ret = malloc(sizeof(char) * (depth + 1));
   if (ret) {
     ret += depth;
