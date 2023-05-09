@@ -4,6 +4,8 @@
 *.swp
 
 out
+README.html
+pub.css
 
 commentifier
 codifier

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+outdir=out
+files=(
+  BuildLinuxPMI CompilingVanillaKernels GitLinuxPMI-HOWTO home.md
+  KernelPrecedents KVMHowTo KVMImages Lenny2.6.17HowTo LinuxPMIFAQ
+  LinuxPMIUsersGuide Migrating OpenMosix26Todo OpenMosixPatchCommentaries
+  PatchCommentaries PatchQualityLevels ProcessUnmigratableReasons
+  RegressionTests SecurityRules SoftwareNotes Status Testing UserspaceInterfacingRules
+)
+
+![ -d "$outdir" ] \
+  && mkdir "$outdir" && pushd "$outdir" && git init && git branch -m main && popd
+
+cp Makefile config.rb "$outdir/"
+pushd "$outdir"
+git reset HEAD~
+popd
+
+for file in ${files[@]}; do
+  cat "$file" \
+    | sed 's/^\s*===/###/' \
+    | sed 's/^\s*==/##/' \
+    | sed 's/^\s*=/#/' \
+    | sed 's/=\+\s*$//' \
+    | sed 's/\s\+$//' \
+    | sed 's/'"'''"'/**/g' \
+    | sed 's/'"''"'"/***/g' \
+    | sed 's/"'"''"'/***/g' \
+    | sed 's/\[\s*\(http[s]\?:\/\/[~?%=.:/A-Za-z0-9_-]\+\)\s\+\(['\'':a-z0-9.A-Z_ -]\+\)\]/[\2](\1)/g' \
+    | sed 's/\[\s*wiki:\([a-z0-9.A-Z_-]\+\)\s\+\(['\'':a-z0-9.A-Z_ -]\+\)\]/[\2](\1.md)/g' \
+    | sed 's/\[\s*wiki:\([a-z0-9.A-Z_-]\+\)\s*\]/[\1](\1.md)/g' \
+    | ./commentifier \
+    | ./codifier \
+    | ./dos_codifier \
+    | ./inline_codifier \
+    > "out/$(basename -s '.md' "$file").md" || exit $?
+  dos2unix "out/$(basename -s '.md' "$file").md"
+done
+
+pushd "$outdir"
+git add Makefile config.rb *.md
+git commit -m "quick-n-dirty: Shrektastic output!"
+popd
