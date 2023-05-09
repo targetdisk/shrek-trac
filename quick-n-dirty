@@ -21,6 +21,7 @@ popd
 
 for file in ${files[@]}; do
   cat "$indir/$file" \
+    | sed 's/^\s*====/####/' \
     | sed 's/^\s*===/###/' \
     | sed 's/^\s*==/##/' \
     | sed 's/^\s*=/#/' \
