@@ -1,0 +1,11 @@
+*.swo
+*.swn
+*.swl
+*.swp
+
+out
+
+commentifier
+codifier
+dos_codifier
+inline_codifier
